@@ -298,7 +298,9 @@ main(int argc, char** argv) {
        // Currently not doing any sorting on main.
        "view.add = main\n"
        "view.add = default\n"
-
+       "view.sort_new     = name,((less,((d.timestamp.started))))\n"
+       "view.sort_current = name,((less,((d.timestamp.started))))\n"
+       
        "view.add = name\n"
        "view.sort_new     = name,((less,((d.name))))\n"
        "view.sort_current = name,((less,((d.name))))\n"
