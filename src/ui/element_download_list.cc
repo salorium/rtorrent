@@ -58,7 +58,7 @@ ElementDownloadList::ElementDownloadList() :
   m_window(NULL),
   m_view(NULL) {
 
-  receive_change_view("main");
+  receive_change_view("directory");
 
   if (m_view == NULL)
     throw torrent::internal_error("View \"main\" must be present to initialize the main display.");
@@ -86,6 +86,8 @@ ElementDownloadList::ElementDownloadList() :
                                       "d.delete_tied=; print=\"Cleared tied to file association for the selected download.\"");
 
   // These should also be commands.
+  m_bindings['m']           = std::bind(&ElementDownloadList::receive_change_view, this, "directory");
+  m_bindings['/']           = std::bind(&ElementDownloadList::receive_change_view, this, "add");
   m_bindings['1']           = std::bind(&ElementDownloadList::receive_change_view, this, "main");
   m_bindings['2']           = std::bind(&ElementDownloadList::receive_change_view, this, "name");
   m_bindings['3']           = std::bind(&ElementDownloadList::receive_change_view, this, "started");

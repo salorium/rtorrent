@@ -37,11 +37,13 @@
 #include "config.h"
 
 #include <cstring>
+#include <string>
 #include <cstdio>
 #include <sstream>
 #include <iomanip>
 #include <rak/socket_address.h>
 #include <rak/timer.h>
+#include <rak/string_manip.h>
 #include <torrent/exceptions.h>
 #include <torrent/connection_manager.h>
 #include <torrent/rate.h>
@@ -130,6 +132,18 @@ print_address(char* first, char* last, const sockaddr* sa) {
 char*
 print_download_title(char* first, char* last, core::Download* d) {
   return print_buffer(first, last, " %s", d->info()->name().c_str());
+}
+
+char*
+print_download_hash(char* first, char* last, core::Download* d) {
+  std::string path = rpc::call_command_string("d.directory", rpc::make_target(d));
+//  std::size_t found;
+//  found = path.find_last_of("/");
+//  path = path.substr(0,found);
+  first = print_buffer(first,last, " ");
+  first = rak::transform_hex(d->info()->hash().c_str(), d->info()->hash().c_str() + d->info()->hash().size(), first, last);
+  first = print_buffer(first,last, " %s ",path.c_str());
+  return  first;
 }
 
 char*

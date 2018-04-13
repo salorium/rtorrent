@@ -298,9 +298,15 @@ main(int argc, char** argv) {
        // Currently not doing any sorting on main.
        "view.add = main\n"
        "view.add = default\n"
-       "view.sort_new     = name,((less,((d.timestamp.started))))\n"
-       "view.sort_current = name,((less,((d.timestamp.started))))\n"
-       
+
+       "view.add = add\n"
+       "view.sort_new     = add,((greater,((d.timestamp.started))))\n"
+       "view.sort_current = add,((greater,((d.timestamp.started))))\n"
+
+       "view.add = directory\n"
+       "view.sort_new     = directory,((less,((d.directory))))\n"
+       "view.sort_current = directory,((less,((d.directory))))\n"
+
        "view.add = name\n"
        "view.sort_new     = name,((less,((d.name))))\n"
        "view.sort_current = name,((less,((d.name))))\n"
@@ -343,6 +349,8 @@ main(int argc, char** argv) {
 
        "schedule2 = view.main,10,10,((view.sort,main,20))\n"
        "schedule2 = view.name,10,10,((view.sort,name,20))\n"
+       "schedule2 = view.add,10,10,((view.sort,add,20))\n"
+       "schedule2 = view.directory,10,10,((view.sort,directory,20))\n"
 
        "schedule2 = session_save,1200,1200,((session.save))\n"
        "schedule2 = low_diskspace,5,60,((close_low_diskspace,500M))\n"

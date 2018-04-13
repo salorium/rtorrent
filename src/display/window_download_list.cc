@@ -90,7 +90,7 @@ WindowDownloadList::redraw() {
   const std::string layout_name = rpc::call_command_string("ui.torrent_list.layout");
 
   if (layout_name == "full") {
-    layout_height = 3;
+    layout_height = 4;
   } else if (layout_name == "compact") {
     layout_height = 1;
   } else {
@@ -126,6 +126,8 @@ WindowDownloadList::redraw() {
   if (layout_name == "full") {
     while (range.first != range.second) {
       print_download_title(buffer, last, *range.first);
+      m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
+      print_download_hash(buffer, last, *range.first);
       m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
       print_download_info_full(buffer, last, *range.first);
       m_canvas->print(0, pos++, "%c %s", range.first == m_view->focus() ? '*' : ' ', buffer);
